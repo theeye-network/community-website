@@ -71,7 +71,7 @@ table {
                 <td class="truncate-text truncate-viewport">{{ event['event_name'] }} <span class="badge bg-primary">{{ event['event_location'] }}</span></td>
                 <td>{{ event['event_date'] }}</td>
                 <td><span class="badge bg-secondary">{{ event['event_type'] }}</span></td>
-                <td>{% if not event['archived'] %}<a href="{{ event['rsvp_link'] }}" target="_blank" class="btn btn-info">RSVP</a>{% else %} <p><strong>Resources:</strong> {{ event['recordings'] }}</p>{% endif %}</td>
+                <td>{% if not event['archived'] %}<a href="{{ event['rsvp_link'] }}" target="_blank" class="btn btn-info">RSVP</a>{% else %} <p><strong>Resources:</strong> {{ event['recordings'] | safe }}</p>{% endif %}</td>
                 <td><button class="btn btn-info viewDetailsBtn" data-event-id="{{ event['_id'] }}">View Details</button></td>
                 {% if is_authed %}<td><a href="/events/update?event_id={{event['_id']}}" class="btn btn-warning">Update</a></td>{% endif %}
                 {% if is_authed %}<td><a href="/events/delete?event_id={{event['_id']}}" class="btn btn-danger">Delete</a></td>{% endif %}
@@ -101,7 +101,7 @@ table {
             {% if not event['archived'] %}
             <a href="{{ event['rsvp_link'] }}" target="_blank" class="btn btn-info">RSVP</a>
             {% else %}
-            <p><strong>Recordings/Resources:</strong> {{ event['recordings'] }}</p>
+            <p><strong>Recordings/Resources:</strong> {{ event['recordings'] | safe }}</p>
             {% endif %}
 
             <!-- Sessions Table -->

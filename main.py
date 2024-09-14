@@ -115,8 +115,11 @@ def update_event():
     event_id = request.args.get("event_id")
     event = events_collection.find_one({"_id": ObjectId(event_id)})
     if not event:
-        print("NOT EVENT", event_id)
-        return redirect(url_for('get_events'))
+        event_id = request.form.get("event_id")
+        event = events_collection.find_one({"_id": ObjectId(event_id)})
+        if not event:
+            print("NOT EVENT",event_id)
+            return redirect(url_for('get_events'))
 
     if request.method == 'POST':
         event_id = request.form.get("event_id")
@@ -139,12 +142,13 @@ def update_event():
             event_name=event_name,
             event_date=event_date,
             event_location=event_location,
-            event_desc=event_desc,  # Assuming md_to_html function is not needed in update
+            event_desc=md_to_html(event_desc),  # Assuming md_to_html function is not needed in update
             event_metadata=event_metadata,
             sessions=sessions,
             archived=archived,
             recordings=recordings
         )
+        print(updated_event.recordings)
         events_collection.update_one({"_id": ObjectId(event_id)}, {"$set": updated_event.dict()})
         return redirect(url_for('get_events'))
 
