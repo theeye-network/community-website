@@ -112,13 +112,14 @@ def create_event():
 
 @app.route('/events/update', methods=['GET', 'POST'])
 def update_event():
-    event_id = request.form.get("event_id")
+    event_id = request.args.get("event_id")
     event = events_collection.find_one({"_id": ObjectId(event_id)})
     if not event:
         print("NOT EVENT", event_id)
         return redirect(url_for('get_events'))
 
     if request.method == 'POST':
+        event_id = request.form.get("event_id")
         event_type = request.form['event_type']
         event_name = request.form['event_name']
         event_date = request.form['event_date']
