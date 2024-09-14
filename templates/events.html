@@ -264,17 +264,32 @@ document.querySelectorAll('.viewDetailsBtn').forEach(button => {
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('table').each(function() {
-            if (!$.fn.DataTable.isDataTable(this)) {
-                $(this).DataTable({
-                    responsive: true,
-                    autoWidth: false, // Ensures width adjustments
-                    paging: false
-                });
-            }
-        });
+$(document).ready(function () {
+    $('table').each(function () {
+        if (!$.fn.DataTable.isDataTable(this)) {
+            const table = $(this);
+            const headers = table.find('thead th');
+            let startTimeIndex = -1;
+
+            // Find the index of the "Start Time" column
+            headers.each(function (index) {
+                if ($(this).text().trim().toLowerCase() === "start time") {
+                    startTimeIndex = index;
+                    return false; // Exit loop once found
+                }
+            });
+
+            // Initialize DataTable with or without sorting based on column presence
+            table.DataTable({
+                responsive: true,
+                autoWidth: false, // Ensures width adjustments
+                paging: false,
+                order: startTimeIndex !== -1 ? [[startTimeIndex, 'asc']] : [] // Sort by "Start Time" if found
+            });
+        }
     });
+});
+
 </script>
 
 
