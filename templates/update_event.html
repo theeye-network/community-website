@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if is_authed %}
+<h1>Update Event</h1>
+<form action="/events/update" method="post">
+    <input type="hidden" name="event_id" value="{{ event._id }}">
+
+    <div class="mb-3">
+        <label for="event_type" class="form-label">Event Type (select)</label>
+        <select class="form-control" id="event_type" name="event_type" required>
+            <option value="Weekend Session" {% if event.event_type == "Weekend Session" %}selected{% endif %}>Weekend Session</option>
+            <option value="Hackathon" {% if event.event_type == "Hackathon" %}selected{% endif %}>Hackathon</option>
+            <option value="Workshop" {% if event.event_type == "Workshop" %}selected{% endif %}>Workshop</option>
+            <option value="Flagship Event" {% if event.event_type == "Flagship Event" %}selected{% endif %}>Flagship Event</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="event_name" class="form-label">Event Name</label>
+        <input type="text" class="form-control" id="event_name" name="event_name" value="{{ event.event_name }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="event_date" class="form-label">Event Date</label>
+        <input type="date" class="form-control" id="event_date" name="event_date" value="{{ event.event_date }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="event_location" class="form-label">Event Location</label>
+        <input type="text" class="form-control" id="event_location" name="event_location" value="{{ event.event_location }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="event_desc" class="form-label">Event Description (Markdown Supported)</label>
+        <textarea class="form-control" id="event_desc" name="event_desc" rows="5" required>{{ event.event_desc }}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="event_metadata" class="form-label">Event Metadata (Comma-separated key:value pairs)</label>
+        <input type="text" class="form-control" id="event_metadata" name="event_metadata" value="{{ event_metadata_str }}">
+    </div>
+
+    <div class="mb-3">
+        <label for="sessions" class="form-label">Sessions (Pipe-separated name|speaker|start_time|end_time|resources)</label>
+        <input type="text" class="form-control" id="sessions" name="sessions" value="{{ sessions_str }}">
+    </div>
+
+    <div class="mb-3">
+        <label for="rsvp_link" class="form-label">RSVP Link</label>
+        <input type="url" class="form-control" id="rsvp_link" name="rsvp_link" value="{{ event.rsvp_link }}">
+    </div>
+
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="archived" name="archived" {% if event.archived %}checked{% endif %}>
+        <label class="form-check-label" for="archived">Archived?</label>
+    </div>
+
+    <div class="mb-3">
+        <label for="recordings" class="form-label">Recordings/Resources (if archived)</label>
+        <input type="text" class="form-control" id="recordings" name="recordings" value="{{ event.recordings }}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+{% else %}
+YOU CANNOT PERFORM THIS ACTION!
+{% endif %}
+{% endblock %}

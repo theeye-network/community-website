@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if is_authed %}<h1>Confirm Deletion</h1>
+<p>Are you sure you want to delete the event "{{ event.event_name }}"?</p>
+<form action="/events/delete" method="post">
+    <input type="hidden" name="event_id" value="{{ event._id }}">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="/events" class="btn btn-secondary">Cancel</a>
+</form>
+{% else %}
+YOU CANNOT PERFORM THIS ACTION!
+{% endif %}
+{% endblock %}

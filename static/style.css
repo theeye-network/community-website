@@ -1,0 +1,37 @@
+body {
+    padding-top: 70px;
+    background-color: #f4f4f9;
+}
+
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar a.navbar-brand, .navbar-nav a.nav-link {
+    color: #ffffff !important;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.card {
+    margin-bottom: 15px;
+}
+
+.card-header {
+    background-color: #343a40;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #343a40;
+    color: white;
+}

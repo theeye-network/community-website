@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if is_authed %}
+<h1>Create New Event</h1>
+<form action="/events/create" method="post">
+    <div class="mb-3">
+        <label for="event_type" class="form-label">Event Type (select)</label>
+        <select class="form-control" id="event_type" name="event_type" required>
+            <option value="Weekend Session">Weekend Session</option>
+            <option value="Hackathon">Hackathon</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Flagship Event">Flagship Event</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="event_name" class="form-label">Event Name</label>
+        <input type="text" class="form-control" id="event_name" name="event_name" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="event_date" class="form-label">Event Date</label>
+        <input type="date" class="form-control" id="event_date" name="event_date" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="event_location" class="form-label">Event Location</label>
+        <input type="text" class="form-control" id="event_location" name="event_location" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="event_desc" class="form-label">Event Description (Markdown Supported)</label>
+        <textarea class="form-control" id="event_desc" name="event_desc" rows="5" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="event_metadata" class="form-label">Event Metadata (Comma-separated key:value pairs)</label>
+        <input type="text" class="form-control" id="event_metadata" name="event_metadata">
+    </div>
+
+    <div class="mb-3">
+        <label for="sessions" class="form-label">Sessions (Pipe-separated name|speaker|start_time|end_time|resources)</label>
+        <input type="text" class="form-control" id="sessions" name="sessions">
+    </div>
+
+    <div class="mb-3">
+        <label for="rsvp_link" class="form-label">RSVP Link</label>
+        <input type="url" class="form-control" id="rsvp_link" name="rsvp_link">
+    </div>
+
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="archived" name="archived">
+        <label class="form-check-label" for="archived">Archived?</label>
+    </div>
+
+    <div class="mb-3">
+        <label for="recordings" class="form-label">Recordings/Resources (if archived)</label>
+        <input type="text" class="form-control" id="recordings" name="recordings">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% else %}
+YOU CANNOT PERFORM THIS ACTION!
+{% endif %}
+{% endblock %}
